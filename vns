@@ -1,0 +1,10 @@
+#!/bin/bash
+
+dt=$(date '+%d/%m/%Y %H:%M:%S');
+echo $dt > output.txt
+echo "=====================================" >> output.txt
+for i in 6085 5774 6342 9174 10308 9903 8156 9594 2428 2552 6102 10040 6106 3381 8158 8491 9331 2515 2427 9668 9994
+do
+    python speedtest.py --server $i | tee -a output.txt
+    echo "=====================================" >> output.txt
+done
