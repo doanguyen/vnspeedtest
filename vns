@@ -1,10 +1,23 @@
 #!/bin/bash
 
-dt=$(date '+%d/%m/%Y %H:%M:%S');
-echo $dt > output.txt
-echo "=====================================" >> output.txt
-for i in 6085 5774 6342 9174 10308 9903 8156 9594 2428 2552 6102 10040 6106 3381 8158 8491 9331 2515 2427 9668 9994
-do
-    python speedtest.py --server $i | tee -a output.txt
+test () {
+    echo "Begin the test."
+    dt=$(date '+%d/%m/%Y %H:%M:%S');
+    echo $dt > output.txt
     echo "=====================================" >> output.txt
-done
+    for i in 6085 5774 6342 9174 10308 9903 8156 9594 2428 2552 6102 10040 6106 3381 8158 8491 9331 2515 2427 9668 9994
+    do
+        python speedtest.py --server $i | tee -a output.txt
+        echo "=====================================" >> output.txt
+    done    
+}
+
+
+file="./speedtest.py"
+if [[ -f "$file" ]]; then
+    test
+else
+    echo "Test file is not yet downloaded. Downloading..."
+    wget -q https://raw.githubusercontent.com/sivel/speedtest-cli/master/speedtest.py;
+    test
+fi
